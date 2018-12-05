@@ -1,7 +1,5 @@
 # CA3-2
 
-Dette er bare en test!
-
 Mette Rytt &  
 Pernille Lørup
 
