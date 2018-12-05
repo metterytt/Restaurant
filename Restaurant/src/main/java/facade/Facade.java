@@ -334,12 +334,10 @@ public class Facade {
         }
     }
 
-    //"select distinct new dto.FavRestDTO(r, f) from Restaurant r, FavRest f where r.id in (select f.restID from FavRest f where f.userName=:userName)"
     public List<FavRestDTO> getFavRestaurants(String userName) {
         EntityManager em = getEntityManager();
         try {
             List<FavRestDTO> list;
-            //Query q = em.createQuery("select new dto.FavRestDTO(r, f) from Restaurant r, FavRest f where f.userName=:userName");
             Query q = em.createQuery("select new dto.FavRestDTO(r, f) from Restaurant r, FavRest f where f.userName=:userName and f.restID=r.id");
             q.setParameter("userName", userName);
             list = q.getResultList();
@@ -353,7 +351,6 @@ public class Facade {
         EntityManager em = getEntityManager();
         try {
             FavRestDTO myFav;
-            //Query q = em.createQuery("select new dto.FavRestDTO(r, f) from Restaurant r, FavRest f where f.userName=:userName");
             Query q = em.createQuery("select new dto.FavRestDTO(r, f) from Restaurant r, FavRest f where f.userName=:userName and f.restID=:restID and r.id=:restID");
             q.setParameter("userName", userName);
             q.setParameter("restID", restid);
@@ -363,7 +360,7 @@ public class Facade {
             em.close();
         }
     }
-    
+
     public FavRest editFavRest(FavRest fr, Integer id, String userName) {
         EntityManager em = getEntityManager();
         try {
@@ -373,7 +370,6 @@ public class Facade {
             FavRest frest = (FavRest) q.getSingleResult();
             frest.setComment(fr.getComment());
             frest.setRating(fr.getRating());
-            
             em.getTransaction().begin();
             em.merge(frest);
             em.getTransaction().commit();
@@ -383,13 +379,9 @@ public class Facade {
         }
     }
 
-
     public String getRemoteRestaurants() {
-
         String result = "Error";
         try {
-            //URL url = new URL("https://andreasheick.dk/durumbo/api/info/restaurants");
-
             URL url = new URL("https://andreasheick.dk/durumbo/api/info/durumborestaurants");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -397,84 +389,14 @@ public class Facade {
             con.setRequestProperty("User-Agent", "server");
             Scanner scan = new Scanner(con.getInputStream());
             String jsonStr = "";
-
             while (scan.hasNext()) {
                 jsonStr += scan.nextLine();
             }
             scan.close();
             return jsonStr;
-
         } catch (Exception e) {
-//            result = "->Red<-";
         }
         return "\"" + result + "\"";
-
     }
 
-    public String getSwapiData() throws MalformedURLException, IOException {
-        String hostURL = "https://swapi.co/api/people/";
-        int numberOfServerCalls = 5;
-
-        ExecutorService executor = Executors.newFixedThreadPool(numberOfServerCalls);
-        List<Future<String>> list = new ArrayList<Future<String>>();
-
-        for (int i = 1; i <= numberOfServerCalls; i++) {
-            Callable<String> callable = new SwapiHelper(hostURL + i);
-            Future<String> future = executor.submit(callable);
-            list.add(future);
-        }
-        List<String> returnList = new ArrayList<>();
-        for (Future f : list) {
-            try {
-                returnList.add(f.get().toString());
-            } catch (Exception e) {
-            }
-        }
-        executor.shutdown();
-        String returnstring = "[";
-        for (int i = 0; i < numberOfServerCalls; i++) {
-            returnstring += returnList.get(i);
-            returnstring += ",";
-        }
-
-        returnstring = returnstring.substring(0, returnstring.length() - 1);
-        returnstring += "]";
-        return returnstring;
-    }
-
-    class SwapiHelper implements Callable {
-
-        private String urlName;
-
-        public SwapiHelper(String urlName) {
-            this.urlName = urlName;
-        }
-
-        public String getUrlName() {
-            return urlName;
-        }
-
-        @Override
-        public String call() throws Exception {
-            String result = "Error";
-            try {
-                URL url = new URL(urlName);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.setRequestProperty("Accept", "application/json;charset=UTF-8");
-                con.setRequestProperty("User-Agent", "server");
-                Scanner scan = new Scanner(con.getInputStream());
-                String jsonStr = null;
-                if (scan.hasNext()) {
-                    jsonStr = scan.nextLine();
-                }
-                scan.close();
-                return jsonStr;
-
-            } catch (Exception e) {
-                result = "->Red<-";
-            }
-            return urlName + "---" + result;
-        }
-    }
 }

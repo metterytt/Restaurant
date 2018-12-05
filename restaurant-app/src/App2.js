@@ -61,9 +61,6 @@ class App extends Component {
                             </div>
                         </ul>
                         <Switch>
-                            {/* path={`${match.path}/details/:userfirst`} */}
-                            {/* <Route exact path={`${match.path}/:id`}
-                                render={(props, { match }) => <EditMenu id={match.params.id} {...props} username={this.state.username} />} /> */}
                             <Route path="/myrestaurants"
                                 render={(props) => <MyRestaurants {...props} username={this.state.username} />} />
                             <Route path="/addrestaurant"
@@ -178,7 +175,6 @@ class DeleteUser extends Component {
         await facade.deleteUser(userName);
         const userList = await facade.getAllUsers();
         this.setState({ userList });
-
     }
 
     render() {
@@ -200,7 +196,6 @@ class DeleteUser extends Component {
             </table>
         </div>
     }
-
 }
 
 function SingleData(props) {

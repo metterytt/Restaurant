@@ -24,7 +24,6 @@ export default class Menu extends Component {
                 price={menu.price} />
         );
         return (
-            
             <div>
                 <table className="table">
                     <thead>
@@ -38,6 +37,7 @@ export default class Menu extends Component {
         )
     }
 }
+
 function SingleData(props) {
     const id = props.id;
     const description = props.description;

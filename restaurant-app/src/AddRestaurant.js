@@ -42,7 +42,6 @@ export default class AddRestaurant extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        console.log(JSON.stringify(this.state))
         facade.addRestaurant({
             restName: this.state.restName,
             street: this.state.street,
@@ -60,7 +59,6 @@ export default class AddRestaurant extends Component {
 
     render() {
         let { isBlocking } = this.state;
-        console.log(this.props);
 
         const foodTypeDropDown = this.state.foodTypes.map((foodType) =>
             <FoodTypeDropDown key={foodType.toString()}

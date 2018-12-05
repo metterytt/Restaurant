@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -59,17 +58,9 @@ public class User implements Serializable {
 
     public User(String userName, String userPass) {
         this.userName = userName;
-//        this.userPass = userPass; // Replace
         this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
     }
 
-//    public void addRestaurant (Restaurant restaurant){
-//        restaurants.add(restaurant);
-//    }
-//    
-//    public List<Restaurant> getRestaurants(){
-//        return restaurants;
-//    }
     public String getUserName() {
         return userName;
     }

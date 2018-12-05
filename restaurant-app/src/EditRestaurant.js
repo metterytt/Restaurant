@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import facade from "./apiFacade";
-import { Prompt } from "react-router-dom";
 import EditMenu from './EditMenu.js';
 
 export default class EditRestaurant extends Component {
@@ -13,7 +12,6 @@ export default class EditRestaurant extends Component {
             website: '',
             foodType: '',
             zip: '',
-            isBlocking: false,
             editmenu: false
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -41,9 +39,7 @@ export default class EditRestaurant extends Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        this.setState({
-            isBlocking: event.target.value.length > 0
-        });
+
         this.setState({
             [name]: value
         });
@@ -62,17 +58,14 @@ export default class EditRestaurant extends Component {
             id: this.props.id
         });
         event.target.reset();
-        this.setState({
-            isBlocking: false
-        });
+
     }
 
     render() {
-        let { isBlocking } = this.state;
         if (!this.state.editmenu) {
             return (
                 <div>
-                    Want to add or edit the menu for this restaurant? Click here:
+                    Want to add items to or edit the menu for this restaurant? Click here:
                     <div className="col-sm-offset-3 col-sm-9">
                         <button onClick={this.controleditmenu}>Edit menu</button>
                     </div>
@@ -156,12 +149,7 @@ export default class EditRestaurant extends Component {
                                     <button type="submit" className="btn btn-default">Save</button>
                                 </div>
                             </div>
-                            <Prompt
-                                when={isBlocking}
-                                message={location =>
-                                    `Are you sure you want to go to ${location.pathname}?`
-                                }
-                            />
+
                         </div >
                     </form>
                 </div >

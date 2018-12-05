@@ -53,51 +53,52 @@ export default class EditMenuItem extends Component {
     }
 
     render() {
-
-        return (<div>
-            {this.state.msg}
-            <form className="form-horizontal" onSubmit={this.handleSave}>
-                <div className="form-group">
-                    <label className="control-label col-sm-3">
-                        Name:</label>
-                    <div className="col-sm-9">
-                        <input className="form-control"
-                            name="itemName"
-                            placeholder="Menu item name"
-                            value={this.state.itemName}
-                            onChange={this.handleInputChange} />
+        return (
+            <div>
+                {this.state.msg}
+                <form className="form-horizontal" onSubmit={this.handleSave}>
+                    <div className="form-group">
+                        <label className="control-label col-sm-3">
+                            Name:</label>
+                        <div className="col-sm-9">
+                            <input className="form-control"
+                                name="itemName"
+                                placeholder="Menu item name"
+                                value={this.state.itemName}
+                                onChange={this.handleInputChange} />
+                        </div>
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <label className="control-label col-sm-3">
-                        Description:</label>
-                    <div className="col-sm-9">
-                        <input type="text" className="form-control"
-                            name="description"
-                            placeholder="Description"
-                            value={this.state.description}
-                            onChange={this.handleInputChange} />
+                    <div className="form-group">
+                        <label className="control-label col-sm-3">
+                            Description:</label>
+                        <div className="col-sm-9">
+                            <input type="text" className="form-control"
+                                name="description"
+                                placeholder="Description"
+                                value={this.state.description}
+                                onChange={this.handleInputChange} />
+                        </div>
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <label className="control-label col-sm-3">
-                        Price:</label>
-                    <div className="col-sm-9">
-                        <input type="text" className="form-control"
-                            name="price"
-                            placeholder="Price"
-                            value={this.state.price}
-                            onChange={this.handleInputChange} />
+                    <div className="form-group">
+                        <label className="control-label col-sm-3">
+                            Price:</label>
+                        <div className="col-sm-9">
+                            <input type="text" className="form-control"
+                                name="price"
+                                placeholder="Price"
+                                value={this.state.price}
+                                onChange={this.handleInputChange} />
+                        </div>
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <div className="col-sm-offset-3 col-sm-9">
-                        <button type="submit" className="btn btn-default">Save</button>
+                    <div className="form-group">
+                        <div className="col-sm-offset-3 col-sm-9">
+                            <button type="submit" className="btn btn-default">Save</button>
+                        </div>
                     </div>
-                </div>
-            </form></div>)
+                </form>
+            </div>)
     }
 }

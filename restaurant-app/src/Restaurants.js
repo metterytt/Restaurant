@@ -24,7 +24,6 @@ let zipOptions = {
     4000: '4000'
 }
 
-
 const expandRow = {
     renderer: (row) => (
         <div>
@@ -41,7 +40,6 @@ const expandRow = {
                     <Switch>
                         <Route exact path="/menu" render={(props) => <Menu {...props} id={row.id} />} />
                     </Switch>
-
                 </div>
             </Router>
         </div>
@@ -49,9 +47,6 @@ const expandRow = {
 };
 
 function expandRowCustomer(props) {
-    console.log(props);
-    const username = props.username;
-    console.log(username);
     return ({
         renderer: (row) => (
             <div>
@@ -68,9 +63,8 @@ function expandRowCustomer(props) {
                         <NavLink exact style={{ backgroundColor: 'transparent' }} to="/customer" >Marker som favorit</NavLink>
                         <Switch>
                             <Route exact path="/menu" render={(props) => <Menu {...props} id={row.id} />} />
-                            <Route exact path="/customer" render={(props) => <AddFavoriteRestaurant username={username} restId={row.id} />} />
+                            <Route exact path="/customer" component={addFavoriteRestaurant(props, row.id)} />
                         </Switch>
-
                     </div>
                 </Router>
             </div>
@@ -116,19 +110,8 @@ export default class Restaurants extends Component {
                 this.setState({ restaurantList });
             }
         }
-        catch{
-
+        catch {
         }
-    }
-
-    addFavoriteRestaurant = () => {
-        console.log(this.props);
-        console.log(this.props.username);
-        console.log(this.props.restId);
-        facade.addFavRest({
-            restId: this.props.rowId,
-            username: this.props.username
-        });
     }
 
     componentWillUnmount() {
@@ -136,7 +119,6 @@ export default class Restaurants extends Component {
     }
 
     render() {
-        console.log(this.props.username);
         let role = "";
         if (localStorage.jwtToken) {
             let jwt = localStorage.jwtToken;
@@ -149,7 +131,6 @@ export default class Restaurants extends Component {
 
             return <div>
                 <BootstrapTable
-                    //{...this.props}
                     hover
                     bootstrap4
                     keyField='id'
@@ -177,28 +158,11 @@ export default class Restaurants extends Component {
     }
 }
 
-class AddFavoriteRestaurant extends Component {
-
-    componentDidMount() {
-        this.addFavoriteRestaurant()
-    }
-
-    addFavoriteRestaurant = () => {
-        console.log(this.props);
-        console.log(this.props.username);
-        console.log(this.props.restId);
-        facade.addFavRest({
-            restId: this.props.restId,
-            username: this.props.username
-        });
-    }
-
-    render() {
-        return (
-            <div>
-
-            </div>
-        )
-    }
+function addFavoriteRestaurant(props, rowID) {
+    facade.addFavRest({
+        restId: rowID,
+        username: props.username
+    });
 }
+
 

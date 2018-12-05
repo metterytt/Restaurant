@@ -17,9 +17,6 @@ export default class EditFavRest extends Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        /* this.setState({
-            isBlocking: event.target.value.length > 0
-        }); */
         this.setState({
             [name]: value
         });
@@ -36,9 +33,6 @@ export default class EditFavRest extends Component {
         event.target.reset();
         const msg = 'Edit complete.';
         this.setState({ msg });
-        /* this.setState({
-            isBlocking: false, msg
-        }); */
     }
 
     async componentDidMount() {
@@ -52,41 +46,42 @@ export default class EditFavRest extends Component {
     }
 
     render() {
-
-        return (<div>
-            {this.state.msg} <br></br>
-            {this.state.restName}:  <br></br>
-            <form className="form-horizontal" onSubmit={this.handleSave}>
-                <div className="form-group">
-                    <label className="control-label col-sm-3">
-                        Comment:</label>
-                    <div className="col-sm-9">
-                        <input className="form-control"
-                            name="comment"
-                            placeholder="Comment"
-                            value={this.state.comment}
-                            onChange={this.handleInputChange} />
+        return (
+            <div>
+                {this.state.msg} <br></br>
+                {this.state.restName}:  <br></br>
+                <form className="form-horizontal" onSubmit={this.handleSave}>
+                    <div className="form-group">
+                        <label className="control-label col-sm-3">
+                            Comment:</label>
+                        <div className="col-sm-9">
+                            <input className="form-control"
+                                name="comment"
+                                placeholder="Comment"
+                                value={this.state.comment}
+                                onChange={this.handleInputChange} />
+                        </div>
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <label className="control-label col-sm-3">
-                        Rating:</label>
-                    <div className="col-sm-9">
-                        <input type="text" className="form-control"
-                            name="rating"
-                            placeholder="Rating"
-                            value={this.state.rating}
-                            onChange={this.handleInputChange} />
+                    <div className="form-group">
+                        <label className="control-label col-sm-3">
+                            Rating:</label>
+                        <div className="col-sm-9">
+                            <input type="text" className="form-control"
+                                name="rating"
+                                placeholder="Rating"
+                                value={this.state.rating}
+                                onChange={this.handleInputChange} />
+                        </div>
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <div className="col-sm-offset-3 col-sm-9">
-                        <button type="submit" className="btn btn-default">Save</button>
+                    <div className="form-group">
+                        <div className="col-sm-offset-3 col-sm-9">
+                            <button type="submit" className="btn btn-default">Save</button>
+                        </div>
                     </div>
-                </div>
-            </form></div>)
+                </form>
+            </div>)
     }
 }
 
