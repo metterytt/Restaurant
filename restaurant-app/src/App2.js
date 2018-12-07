@@ -14,6 +14,7 @@ class App extends Component {
 
     logout = () => {
         facade.logout();
+        window.location = "http://localhost:3000/";
         this.setState({ loggedIn: false });
     }
 
@@ -38,7 +39,7 @@ class App extends Component {
                     <div>
                         <ul className="header">
                             <li><NavLink exact activeClassName="active" to="/">Restaurants</NavLink></li>
-                            <li><NavLink activeClassName="active" to="/login">Log in</NavLink></li>
+                            <li><NavLink to="/login">Log in</NavLink></li>
                         </ul>
                         <Switch>
                             <Route exact path="/" component={Restaurants} />
@@ -70,6 +71,7 @@ class App extends Component {
                 </ Router>
             )
         } else if (role === 'customer') {
+            //window.location = "http://localhost:3000/";
             return (
                 <Router>
                     <div>
@@ -84,10 +86,10 @@ class App extends Component {
                         </ul>
                         <Switch>
 
-                            <Route exact path="/" 
-                                    render={(props) => <Restaurants {...props} username={this.state.username}/>}/>
+                            <Route exact path="/"
+                                render={(props) => <Restaurants {...props} username={this.state.username} />} />
                             <Route path="/customer"
-                                    render={(props) => <Customer {...props} username={this.state.username}/>}/>
+                                render={(props) => <Customer {...props} username={this.state.username} />} />
                         </Switch>
                     </div>
                 </ Router>
