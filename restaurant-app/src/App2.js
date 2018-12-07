@@ -18,9 +18,18 @@ class App extends Component {
         this.setState({ loggedIn: false });
     }
 
-    login = (user, pass) => {
-        facade.login(user, pass)
-            .then(res => this.setState({ loggedIn: true, username: user }));
+    login = async (user, pass) => {
+        try {
+            await facade.login(user, pass)
+                .then(res => this.setState({ loggedIn: true, username: user }));
+        }
+        catch (err) {
+            if (err.httpError) {
+                err.fullError.then(eJson => eJson.errorMessage);
+            } else {
+                err.fullError.then(eJson => this.setState({ errorMsg: eJson.errorMessage }));
+            }
+        }
     }
 
     render() {
@@ -32,7 +41,6 @@ class App extends Component {
             let decodedJwtData = JSON.parse(decodedJwtJsonData)
             role = decodedJwtData.roles
         }
-
         if (!this.state.loggedIn) {
             return (
                 <Router>
@@ -41,6 +49,7 @@ class App extends Component {
                             <li><NavLink exact activeClassName="active" to="/">Restaurants</NavLink></li>
                             <li><NavLink to="/login">Log in</NavLink></li>
                         </ul>
+                        {this.state.errorMsg}
                         <Switch>
                             <Route exact path="/" component={Restaurants} />
                             <Route path="/login" render={(props) => <LogIn {...props} login={this.login} />} />
@@ -244,5 +253,5 @@ class LogIn extends Component {
         )
     }
 }
-
 export default App;
+//export default withRouter (App) ;
