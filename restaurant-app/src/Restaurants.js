@@ -47,6 +47,7 @@ const expandRow = {
 };
 
 function expandRowCustomer(props) {
+    const username = props.username;
     return ({
         renderer: (row) => (
             <div>
@@ -63,7 +64,7 @@ function expandRowCustomer(props) {
                         <NavLink exact style={{ backgroundColor: 'transparent' }} to="/customer" >Marker som favorit</NavLink>
                         <Switch>
                             <Route exact path="/menu" render={(props) => <Menu {...props} id={row.id} />} />
-                            <Route exact path="/customer" component={addFavoriteRestaurant(props, row.id)} />
+                            <Route exact path="/customer" component={(props) => <AddFavoriteRestaurant username={username} restId={row.id} />} />
                         </Switch>
                     </div>
                 </Router>
@@ -138,6 +139,7 @@ export default class Restaurants extends Component {
                     columns={columns}
                     filter={filterFactory()}
                     pagination={paginationFactory()}
+                    //expandRow={expandRowCustomer({ ...this.props })}
                     expandRow={expandRowCustomer({ ...this.props })}
                 />
             </div>
@@ -158,11 +160,24 @@ export default class Restaurants extends Component {
     }
 }
 
-function addFavoriteRestaurant(props, rowID) {
-    facade.addFavRest({
-        restId: rowID,
-        username: props.username
-    });
-}
+class AddFavoriteRestaurant extends Component {
+    componentDidMount() {
+        this.addFavoriteRestaurant()
+    }
 
+    addFavoriteRestaurant = () => {
+        facade.addFavRest({
+            restId: this.props.restId,
+            username: this.props.username
+        });
+    }
+
+    render() {
+        return (
+            <div>
+
+            </div>
+        )
+    }
+}
 
