@@ -7,30 +7,16 @@ import {
     ScrollView,
     TouchableOpacity,
     SafeAreaView,
-    Alert
+    Alert,
 } from 'react-native';
-//import { createStackNavigator } from 'react-navigation';
-//import InfoPage from './InfoPage';
 
 const URL = "https://oloye.dk/api/info/getlists";
 
-CardViewPress = (item) => {
-
-    Alert.alert(
-        "Kontakt information: \n \n" +
-        item.restName + "\n " +
-        "Madtype: " + item.foodType + "\n " +
-        "Adresse: " + item.street + ", " + item.cityInfo.zip + " " + item.cityInfo.city + " \n" +
-        "Telefon: " + item.phone + "\n " +
-        "Website: " + item.website + "\n " +
-        " "
-    );
-}
-
-export default class ListViewData extends React.Component {
-    /* static navigationOptions = {
-        title: 'Welcome',
-    }; */
+export default class ListViewDataTest extends React.Component {
+    static navigationOptions = {
+        title: 'Restaurants',
+        fontFamily: 'Courier'
+    }; 
 
     constructor(props) {
         super(props);
@@ -57,40 +43,50 @@ export default class ListViewData extends React.Component {
     renderData(restaurantList) {
         if (restaurantList.length === 0) {
             return (
-                <Text style={{ textAlign: 'center', padding: 10 }}> Henter data... </Text>
+                <Text style={{ textAlign: 'center', padding: 10, fontFamily: 'Courier' }}> Henter data... </Text>
             );
         }
         return restaurantList.map(item => {
-            //const { navigate } = this.props.navigation;
-                return (
-                    <View
-                        key={item.id}
-                        style={{
-                            alignItems: 'center',
-                            flexDirection: 'row',
-                            padding: 3,
-                            justifyContent: 'space-between'
-                        }}
-                    >
-                        <TouchableOpacity onPress={() => CardViewPress(item)}>
-                        {/* <TouchableOpacity onPress={() => {navigate('restaurantInfo');}}>  */}
-                            {/* <TouchableOpacity onPress={() => navigate('InfoPage', {item})}> */}
-                            <CardView style={styles.card}
-                                cardElevation={2}
-                                cardMaxElevation={2}
-                                cornerRadius={5}
-                                cornerOverlap={false}
-                            >
-                                <Text style={styles.text1}>{item.restName}</Text>
+            const { navigate } = this.props.navigation;
+            return (
+                <View
+                    key={item.id}
+                    style={{
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        padding: 3,
+                        justifyContent: 'space-between'
+                    }}
+                >
+                   {/*  <TouchableOpacity onPress={() => this.onPress(item)}>  */}
+                    <TouchableOpacity onPress={() => navigate('InfoPage', 
+                    {
+                        restName: item.restName, 
+                        foodType: item.foodType,
+                        zip: item.cityInfo.zip,
+                        city: item.cityInfo.city,
+                        street: item.street,
+                        phone: item.phone,
+                        website: item.website
+                    })}>
+                        
+                        <CardView style={styles.card}
+                            cardElevation={2}
+                            cardMaxElevation={2}
+                            cornerRadius={5}
+                            cornerOverlap={false}
+                        >
+                            <Text style={styles.text1}>{item.restName}</Text>
                                 <Text style={styles.text2}>
                                     {item.foodType + '    '}
                                     {item.cityInfo.zip + '    '}
                                     {item.cityInfo.city}
                                 </Text>
-                            </CardView>
-                        </TouchableOpacity>
-                    </View>
-                );
+
+                        </CardView>
+                    </TouchableOpacity>
+                </View>
+            );
         });
     }
 
@@ -98,9 +94,6 @@ export default class ListViewData extends React.Component {
         const { restaurantList } = this.state;
         return (
             <SafeAreaView style={styles.safeAreaView}>
-                <View style={styles.titleView}>
-                    <Text style={styles.title}>Restaurants</Text>
-                </View>
                 <ScrollView>
                     <View>{this.renderData(restaurantList)}</View>
                 </ScrollView>
@@ -109,21 +102,11 @@ export default class ListViewData extends React.Component {
     }
 }
 
-
-/* const App2 = createStackNavigator({
-    Home: {screen: ListViewData},
-    InfoPage: {screen: InfoPage},
-});
-
-export default App2; */
-
-
-
 const styles = StyleSheet.create({
 
     safeAreaView: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'whitesmoke',
     },
     container: {
         flex: 1,
@@ -131,7 +114,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     child: {
-        alignItems: 'center'
+        alignItems: 'center',
     },
     card: {
         backgroundColor: 'white',
@@ -154,16 +137,19 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         color: 'black',
+        fontFamily: 'Courier'
     },
     text1: {
         fontSize: 20,
         textAlign: 'left',
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: 'Courier'
     },
     text2: {
         fontSize: 15,
         textAlign: 'left',
         opacity: .74,
+        fontFamily: 'Courier'
     },
 });
 
