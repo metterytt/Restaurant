@@ -14,7 +14,7 @@ class App extends Component {
 
     logout = () => {
         facade.logout();
-        window.location = "http://localhost:3000/";
+        //window.location = "http://localhost:3000/";
         this.setState({ loggedIn: false });
     }
 
