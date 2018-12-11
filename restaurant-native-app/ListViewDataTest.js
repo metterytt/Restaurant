@@ -67,7 +67,8 @@ export default class ListViewDataTest extends React.Component {
                         city: item.cityInfo.city,
                         street: item.street,
                         phone: item.phone,
-                        website: item.website
+                        website: item.website,
+                        id: item.id
                     })}>
                         
                         <CardView style={styles.card}

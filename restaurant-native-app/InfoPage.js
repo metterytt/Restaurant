@@ -6,17 +6,9 @@ import {
     ScrollView,
 } from 'react-native';
 
-//const URL = "https://oloye.dk/api/info/getlists";
-
-/* getMenuItems = (id) => {
-    const options = this.makeOptions("GET", true);
-    return fetch(URL + "/api/info/getmenu?id=" + id, options).then(handleHttpErrors);
-} */
-
 export default class InfoPage extends Component {
     constructor(props) {
         super(props)
-        //this.state={menuItems: []}
     }
 
     render() {
@@ -33,12 +25,16 @@ export default class InfoPage extends Component {
                     {restaurant.restName + '\n '}
                     </Text>
 
-                    <Text style={styles.information}>
-                        {'Madtype: \n' + restaurant.foodType + '\n \n'}
-                        {'Adresse: \n' + restaurant.street + '\n' + restaurant.zip + ' ' + restaurant.city + '\n \n'}
-                        {'Telefon: \n' + restaurant.phone + '\n \n'}
-                        {'Website: \n' + restaurant.website + '\n '}
-                    </Text>
+                    <Text style={styles.information}>{'Madtype:'}</Text>
+                    <Text style={styles.information2}>{restaurant.foodType + '\n'}</Text>
+                    <Text style={styles.information}>{'Adresse: '}</Text>    
+                    <Text style={styles.information2}>{restaurant.street + '\n' + restaurant.zip + ' ' + restaurant.city + ' \n'}</Text>   
+                    <Text style={styles.information}>{'Telefon: '}</Text>   
+                    <Text style={styles.information2}>{restaurant.phone + '\n'}</Text>
+                    <Text style={styles.information}>{'Website: '}</Text>
+                    <Text style={styles.information2}>{restaurant.website + '\n'}</Text>
+
+                        
                 </CardView>
             </ScrollView>
         );
@@ -50,13 +46,21 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 10,
         fontSize: 20,
-        fontFamily: 'Courier'
+        fontFamily: 'Courier',
+        fontWeight: 'bold'
+    },
+    information2: {
+        textAlign: 'center',
+        marginTop: 10,
+        fontSize: 20,
+        fontFamily: 'Courier',
     },
     restName: {
         textAlign: 'center',
         marginTop: 10,
         fontSize: 25,
-        fontFamily: 'Courier'
+        fontFamily: 'Courier',
+        textDecorationLine: 'underline'
     },
     card: {
         backgroundColor: 'white',

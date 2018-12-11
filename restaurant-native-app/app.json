@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ca3-native-app",
+    "name": "Restaurant finder",
     "description": "This project is really great.",
-    "slug": "ca3-native-app",
+    "slug": "restaurant-finder",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
