@@ -37,7 +37,6 @@ export default class EditFavRest extends Component {
 
     async componentDidMount() {
         const favRest = await facade.getSingleFavRest(this.props.username, this.props.restID);
-        console.log(favRest);
         this.setState({
             restName: favRest.restName,
             comment: favRest.comment,
